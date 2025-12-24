@@ -41,11 +41,11 @@ return [
         'status' => 'Status',
         'xp_level' => 'XP Level',
         'gamemode' => 'Spielmodus',
-        'visual_inventory' => 'Visual Inventar',
+        'visual_inventory' => 'Visuelles Inventar',
     ],
 
     'stats' => [
-        'health' => 'Herzen',
+        'health' => 'Gesundheit',
         'food' => 'Hunger',
     ],
 
@@ -64,19 +64,19 @@ return [
         'clear_inventory' => [
             'label' => 'Inventar leeren',
             'desc' => 'Bist du sicher das du das Inventar dieses Spielers löschen willst?',
-            'notify' => 'Inventar Clear Command wurde gesendet',
+            'notify' => 'Der Command zum Inventar leeren wurde gesendet',
         ],
         'kick' => [
             'label' => 'Kick',
             'reason' => 'Grund',
             'default_reason' => 'Gekickt von einem Operator',
-            'notify' => 'Kick Command gesendet',
+            'notify' => 'Der Command zum Kicken eines Spielers wurde gesendet',
         ],
         'ban' => [
             'label' => 'Ban',
             'reason' => 'Grund',
             'default_reason' => 'Gebannt von einem Operator',
-            'notify' => 'Ban Command gesendet',
+            'notify' => 'Der Command zum Bannen eines Spielers wurde gesendet',
         ],
     ],
 
@@ -102,4 +102,5 @@ return [
         'mins' => 'min',
     ],
 ];
+
 
