@@ -7,7 +7,7 @@ return [
         'avatar' => 'Avatar',
         'name' => 'Nutzername',
         'status' => 'Status',
-        'world' => 'World',
+        'world' => 'Welt',
         'online' => 'Online',
         'offline' => 'Offline',
         'op' => 'Operator',
@@ -102,3 +102,4 @@ return [
         'mins' => 'min',
     ],
 ];
+
