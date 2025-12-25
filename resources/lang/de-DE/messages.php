@@ -1,11 +1,11 @@
 <?php
 
 return [
-    'navigation_label' => 'Spieler',
-    
+    'navigation_label' => 'Spieler-Manager',
+
     'columns' => [
         'avatar' => 'Avatar',
-        'name' => 'Nutzername',
+        'name' => 'Benutzername',
         'status' => 'Status',
         'world' => 'Welt',
         'online' => 'Online',
@@ -24,22 +24,24 @@ return [
     'sections' => [
         'identity' => 'Identität',
         'statistics' => 'Statistiken',
-        'statistics_desc' => 'Historische Daten aus dem Welt Ordner',
-        'live_status' => 'Live Status',
+        'statistics_desc' => 'Historische Daten aus den Welt-Stats',
+        'live_status' => 'Live-Status',
         'live_status_desc' => 'Echtzeitdaten (Nur verfügbar wenn Online)',
         'inventory' => 'Inventar',
+        'management' => 'Verwaltung',
+        'management_desc' => 'Aktionen für diesen Spieler ausführen',
     ],
 
     'fields' => [
-        'username' => 'Nutzername',
+        'username' => 'Benutzername',
         'current_status' => 'Aktueller Status',
         'uuid' => 'UUID',
         'play_time' => 'Spielzeit',
-        'distance_walked' => 'Distanz gelaufen',
+        'distance_walked' => 'Zurückgelegte Distanz',
         'mobs_killed' => 'Mobs getötet',
         'deaths' => 'Tode',
         'status' => 'Status',
-        'xp_level' => 'XP Level',
+        'xp_level' => 'XP-Level',
         'gamemode' => 'Spielmodus',
         'visual_inventory' => 'Visuelles Inventar',
     ],
@@ -54,29 +56,29 @@ return [
         'op' => [
             'label_op' => 'OP',
             'label_deop' => 'DEOP',
-            'heading_op' => 'OP Status geben',
-            'heading_deop' => 'OP Status entfernen',
-            'desc_op' => 'Bist du sicher, das du diesen Spieler zum Operator machen möchtest?',
-            'desc_deop' => 'Bist du sicher, das du diesen Spieler den Operatore Status entfernen möchtest?',
-            'notify_op' => 'OP Command gesendet',
-            'notify_deop' => 'DEOP Command gesendet',
+            'heading_op' => 'Operator-Status gewähren',
+            'heading_deop' => 'Operator-Status entziehen',
+            'desc_op' => 'Möchten Sie diesen Spieler wirklich zum Operator (OP) machen?',
+            'desc_deop' => 'Möchten Sie diesem Spieler wirklich die OP-Rechte entziehen?',
+            'notify_op' => 'OP-Befehl gesendet',
+            'notify_deop' => 'DEOP-Befehl gesendet',
         ],
         'clear_inventory' => [
-            'label' => 'Inventar leeren',
-            'desc' => 'Bist du sicher das du das Inventar dieses Spielers löschen willst?',
-            'notify' => 'Der Command zum Inventar leeren wurde gesendet',
+            'label' => 'Inv leeren',
+            'desc' => 'Möchten Sie das Inventar dieses Spielers wirklich leeren? Dies kann nicht rückgängig gemacht werden.',
+            'notify' => 'Inventar leeren Befehl gesendet',
         ],
         'kick' => [
-            'label' => 'Kick',
+            'label' => 'Kicken',
             'reason' => 'Grund',
-            'default_reason' => 'Gekickt von einem Operator',
-            'notify' => 'Der Command zum Kicken eines Spielers wurde gesendet',
+            'default_reason' => 'Vom Operator gekickt',
+            'notify' => 'Kick-Befehl gesendet',
         ],
         'ban' => [
-            'label' => 'Ban',
+            'label' => 'Bannen',
             'reason' => 'Grund',
-            'default_reason' => 'Gebannt von einem Operator',
-            'notify' => 'Der Command zum Bannen eines Spielers wurde gesendet',
+            'default_reason' => 'Vom Operator gebannt',
+            'notify' => 'Ban-Befehl gesendet',
         ],
     ],
 
@@ -85,8 +87,8 @@ return [
     ],
 
     'pages' => [
-        'list' => 'Spieler Liste',
-        'view' => 'Spieler anschauen',
+        'list' => 'Spielerliste',
+        'view' => 'Spieler ansehen',
     ],
 
     'values' => [
@@ -99,8 +101,12 @@ return [
     ],
 
     'units' => [
-        'mins' => 'min',
+        'mins' => 'Min',
+    ],
+
+    'settings' => [
+        'rcon_enabled' => 'RCON / Live-Status aktivieren',
+        'rcon_enabled_helper' => 'Ermöglicht das Abrufen von Echtzeitdaten (Inventar, Gesundheit usw.) über RCON. Erfordert, dass RCON in den server.properties aktiviert ist.',
+        'saved' => 'Einstellungen erfolgreich gespeichert.',
     ],
 ];
-
-

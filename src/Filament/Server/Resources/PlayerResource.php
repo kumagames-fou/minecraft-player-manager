@@ -175,6 +175,7 @@ class PlayerResource extends Resource
 
                 // 3. Live Data (RCON)
                 \Filament\Schemas\Components\Section::make(__('minecraft-player-manager::messages.sections.live_status'))
+                    ->visible(fn () => env('MC_PLAYER_MANAGER_RCON_ENABLED', false))
                     ->description(__('minecraft-player-manager::messages.sections.live_status_desc'))
                     ->schema([
                         \Filament\Forms\Components\ViewField::make('visual_stats')
@@ -196,16 +197,28 @@ class PlayerResource extends Resource
                                 default => $state,
                             })
                             ->columnSpan(2),
-                    ])->columns(4),
+                    ])->columns(4)->collapsible(),
 
-                // 4. Inventory & Debug
-                 \Filament\Schemas\Components\Section::make(__('minecraft-player-manager::messages.sections.inventory'))
+                // Inventory Section
+                \Filament\Schemas\Components\Section::make(__('minecraft-player-manager::messages.sections.inventory'))
+                    ->visible(fn () => env('MC_PLAYER_MANAGER_RCON_ENABLED', false))
                     ->schema([
                          \Filament\Forms\Components\ViewField::make('inventory_data')
                             ->label(__('minecraft-player-manager::messages.fields.visual_inventory'))
                             ->view('minecraft-player-manager::filament.server.resources.player-resource.widgets.inventory-view')
                             ->columnSpanFull(),
-                    ]),
+                    ])->collapsible(),
+
+                // Management Section (Actions)
+                 \Filament\Schemas\Components\Section::make(__('minecraft-player-manager::messages.sections.management'))
+                    ->description(__('minecraft-player-manager::messages.sections.management_desc'))
+                    ->schema([
+                        \Filament\Forms\Components\ViewField::make('management_actions')
+                            ->view('minecraft-player-manager::filament.server.resources.player-resource.widgets.management-actions')
+                            ->columnSpanFull(),
+                    ])->collapsible(),
+                
+
 
 
             ]);

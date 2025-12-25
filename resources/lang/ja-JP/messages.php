@@ -28,6 +28,8 @@ return [
         'live_status' => 'ライブステータス',
         'live_status_desc' => 'リアルタイムデータ（オンライン時のみ有効）',
         'inventory' => 'インベントリ',
+        'management' => '管理',
+        'management_desc' => 'このプレイヤーに対するアクションを実行',
     ],
 
     'fields' => [
@@ -100,5 +102,10 @@ return [
 
     'units' => [
         'mins' => '分',
+    ],
+    'settings' => [
+        'rcon_enabled' => 'RCON / ライブステータスを有効にする',
+        'rcon_enabled_helper' => 'RCONを使用してリアルタイムデータ（インベントリ、体力など）を取得・表示します。server.propertiesでRCONが有効になっている必要があります。',
+        'saved' => '設定を保存しました。',
     ],
 ];

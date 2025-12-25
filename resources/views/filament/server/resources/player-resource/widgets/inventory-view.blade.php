@@ -20,7 +20,7 @@
                         $slotId = 9 + ($row * 9) + $col;
                         $item = $getItem($slotId);
                     @endphp
-                    <div class="inv-slot relative flex items-start justify-center pt-0.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm transition hover:ring-2 hover:ring-primary-500 hover:border-primary-500 group shrink-0"
+                    <div class="inv-slot relative flex items-center justify-center bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm transition hover:ring-2 hover:ring-primary-500 hover:border-primary-500 group shrink-0"
                          title="{{ $item['id'] ?? 'Empty' }}">
                         @if ($item)
                             <img src="https://assets.mcasset.cloud/1.20.4/assets/minecraft/textures/item/{{ str_replace('minecraft:', '', $item['id']) }}.png" 
@@ -47,7 +47,7 @@
                 @php 
                     $item = $getItem($col);
                 @endphp
-                <div class="inv-slot relative flex items-start justify-center pt-0.5 bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-600 rounded-md shadow-sm transition hover:ring-2 hover:ring-primary-500 hover:border-primary-500 group shrink-0"
+                <div class="inv-slot relative flex items-center justify-center bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-600 rounded-md shadow-sm transition hover:ring-2 hover:ring-primary-500 hover:border-primary-500 group shrink-0"
                      title="{{ $item['id'] ?? 'Empty' }}">
                     @if ($item)
                         <img src="https://assets.mcasset.cloud/1.20.4/assets/minecraft/textures/item/{{ str_replace('minecraft:', '', $item['id']) }}.png" 

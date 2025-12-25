@@ -28,6 +28,8 @@ return [
         'live_status' => 'Live Status',
         'live_status_desc' => 'Real-time data (Only available when Online)',
         'inventory' => 'Inventory',
+        'management' => 'Management',
+        'management_desc' => 'Perform actions on this player',
     ],
 
     'fields' => [
@@ -100,5 +102,10 @@ return [
 
     'units' => [
         'mins' => 'mins',
+    ],
+    'settings' => [
+        'rcon_enabled' => 'Enable RCON / Live Status',
+        'rcon_enabled_helper' => 'Enables real-time data fetching (Inventory, Health, etc.) via RCON. Requires RCON to be enabled in server.properties.',
+        'saved' => 'Settings saved successfully.',
     ],
 ];

@@ -5,8 +5,15 @@ namespace KumaGames\GamePlayerManager;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 
-class GamePlayerManagerPlugin implements Plugin
+use App\Contracts\Plugins\HasPluginSettings;
+use App\Traits\EnvironmentWriterTrait;
+use Filament\Forms\Components\Toggle;
+use Filament\Notifications\Notification;
+
+class GamePlayerManagerPlugin implements Plugin, HasPluginSettings
 {
+    use EnvironmentWriterTrait;
+
     public function getId(): string
     {
         return 'minecraft-player-manager';
@@ -35,5 +42,27 @@ class GamePlayerManagerPlugin implements Plugin
                 [\KumaGames\GamePlayerManager\Filament\Server\Widgets\PlayerCountWidget::class]
             );
         }
+    }
+
+    public function getSettingsForm(): array
+    {
+        return [
+            Toggle::make('rcon_enabled')
+                ->label(__('minecraft-player-manager::messages.settings.rcon_enabled'))
+                ->helperText(__('minecraft-player-manager::messages.settings.rcon_enabled_helper'))
+                ->default(env('MC_PLAYER_MANAGER_RCON_ENABLED', false)),
+        ];
+    }
+
+    public function saveSettings(array $data): void
+    {
+        $this->writeToEnvironment([
+            'MC_PLAYER_MANAGER_RCON_ENABLED' => $data['rcon_enabled'],
+        ]);
+
+        Notification::make()
+            ->title(__('minecraft-player-manager::messages.settings.saved'))
+            ->success()
+            ->send();
     }
 }

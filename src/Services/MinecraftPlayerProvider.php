@@ -134,7 +134,29 @@ class MinecraftPlayerProvider implements GamePlayerService
             // usercache.json might not exist on new servers
         }
 
-        // 3. Online Players via Query
+        // 4. Online Players via Query
+        $onlinePlayers = $this->getOnlinePlayersViaQuery($server);
+        foreach ($onlinePlayers as $playerName) {
+            $lowerName = strtolower($playerName);
+            if (isset($allPlayers[$lowerName])) {
+                $allPlayers[$lowerName]['online'] = true;
+            } else {
+                $allPlayers[$lowerName] = [
+                    'id' => $playerName,
+                    'name' => $playerName,
+                    'online' => true,
+                    'is_op' => isset($opNames[$lowerName]),
+                    'is_banned' => false,
+                ];
+            }
+        }
+
+        return array_values($allPlayers);
+    }
+
+    private function getOnlinePlayersViaQuery(Server $server): array
+    {
+        $players = [];
         try {
             $ip = $server->allocation->alias ?? $server->allocation->ip;
             $port = $server->allocation->port;
@@ -172,19 +194,8 @@ class MinecraftPlayerProvider implements GamePlayerService
                             $rawPlayers = explode("\x00", $playerSection);
 
                             foreach ($rawPlayers as $playerName) {
-                                if (empty($playerName)) continue;
-                                $lowerName = strtolower($playerName);
-                                
-                                if (isset($allPlayers[$lowerName])) {
-                                    $allPlayers[$lowerName]['online'] = true;
-                                } else {
-                                    $allPlayers[$lowerName] = [
-                                        'id' => $playerName,
-                                        'name' => $playerName,
-                                        'online' => true,
-                                        'is_op' => isset($opNames[$lowerName]),
-                                        'is_banned' => false, // Assumption, though queries don't show bans usually
-                                    ];
+                                if (!empty($playerName)) {
+                                    $players[] = $playerName;
                                 }
                             }
                         }
@@ -195,13 +206,12 @@ class MinecraftPlayerProvider implements GamePlayerService
         } catch (\Exception $e) {
             // Query failed
         }
-
-        return array_values($allPlayers);
+        return $players;
     }
 
     public function getPlayerDetails(string $serverId, string $playerId): array
     {
-        $server = Server::where('uuid', $serverId)->with('allocation')->first();
+        $server = Server::where('uuid', $serverId)->orWhere('uuid_short', $serverId)->first();
         if (!$server) return [];
         
         // Resolve UUID from Username early (Need UUID for stats file and UI)
@@ -286,7 +296,28 @@ class MinecraftPlayerProvider implements GamePlayerService
         $primaryHost = $server->allocation->alias ?? $server->allocation->ip;
         $hasPass = !empty($rconPassword);
 
-        if (!$enableRcon || !$rconPort || !$hasPass) {
+        $primaryHost = $server->allocation->alias ?? $server->allocation->ip;
+        $hasPass = !empty($rconPassword);
+        
+        // Check setting
+        $rconEnabled = env('MC_PLAYER_MANAGER_RCON_ENABLED', false);
+
+        if (!$rconEnabled) {
+             // Try to get status via Query even if RCON is disabled
+             $onlinePlayers = $this->getOnlinePlayersViaQuery($server);
+             $isOnline = false;
+             foreach ($onlinePlayers as $p) {
+                 if (strtolower($p) === strtolower($playerId)) {
+                     $isOnline = true;
+                     break;
+                 }
+             }
+             
+             $details['status'] = $isOnline ? 'Online' : 'Offline';
+             $details['raw_stats'] = $isOnline 
+                ? 'Player is Online (RCON stats disabled)' 
+                : 'Player is Offline';
+        } elseif (!$enableRcon || !$rconPort || !$hasPass) {
             $details['raw_stats'] = 'RCON is not enabled in server.properties.';
             $details['status'] = 'Config Error';
         } else {
