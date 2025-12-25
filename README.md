@@ -1,6 +1,6 @@
 # Minecraft Player Manager for Pelican Panel
 
-[English](#english) | [日本語](#japanese)
+[English](#english) | [日本語](#japanese) | [German](#deutsch)
 
 ---
 
@@ -93,3 +93,51 @@ RCONを使用してリアルタイムのステータスを確認したり、イ�
 1.  Pelican Panelで対象の **サーバー画面** を開きます。
 2.  ナビゲーションメニューの **Player**（または「ゲームプレイヤー」）をクリックします。
 3.  プレイヤー一覧が表示されます。「詳細」ボタンをクリックすると、リアルタイムな情報やインベントリを確認できます。
+
+---
+
+<a name="deutsch"></a>
+## 🇩🇪 Deutsch
+
+### ⚠️ Hinweis des Entwicklers
+**Ich bin ein japanischer Entwickler.**  
+Ich bemühe mich, Support auf Englisch anzubieten. Bitte habe Verständnis, falls Antworten verzögert sind oder Übersetzungstools verwendet werden. Vielen Dank für deine Geduld!
+
+### Überblick
+**Minecraft Player Manager** ist ein Plugin für das [Pelican Panel](https://pelican.dev/), mit dem du Spieler auf deinen Minecraft-Servern direkt über das Panel verwalten kannst.  
+Du kannst den Spielerstatus in Echtzeit über RCON einsehen, Inventare prüfen und administrative Aktionen wie Kick, Ban oder OP/Deop ausführen, ohne das Spiel zu betreten.
+
+### Funktionen
+* **Echtzeit-Spielerliste**: Anzeige aller bekannten Spieler (Online, Offline, Gebannt, OP).
+* **Visuelle Statistiken**:
+  * Leben (Herzen) und Hunger (Keulen).
+  * Erfahrungslevel, Spielmodus.
+  * Statistiken aus Weltdaten (Spielzeit, getötete Mobs, zurückgelegte Distanz, Tode).
+* **Inventar-Viewer**:
+  * Visuelle Darstellung des Spielerinventars und der Rüstungsslots.
+* **Verwaltungsaktionen**:
+  * **kick**: Einen Spieler vom Server kicken.
+  * **ban**: Einen Spieler bannen (mit Begründung).
+  * **op / deop**: Operator-Rechte vergeben oder entziehen.
+  * **Inventar leeren**: Alle Items eines Spielers entfernen.
+* **Mehrsprachige Unterstützung**: Vollständig lokalisiert auf Englisch und Japanisch.
+
+### Voraussetzungen
+* **PHP**: 8.2 oder höher
+* **Node.js**: v20 oder höher
+* **Yarn**: v1.22 oder höher
+* **Pelican Panel**: v1.0.0 oder höher
+* **Minecraft-Server**:
+  * **Java Edition**: Version 1.13+ empfohlen (für Data-Command-Unterstützung).
+  * **RCON**: Muss aktiviert sein (`enable-rcon=true` sowie gültiger Port und Passwort).
+  * **Query**: Muss aktiviert sein (`enable-query=true`) für die Echtzeit-Spielerliste.
+
+### Installation
+1. Plugin-Release herunterladen.
+2. Das Plugin in das `plugins`-Verzeichnis deines Pelican Panels hochladen.
+3. Über die Administrationsseite des Panels installieren.
+
+### Nutzung
+1. Öffne die **Server-Ansicht** im Pelican Panel.
+2. Klicke im Navigationsmenü auf den Tab **Spieler**.
+3. Du siehst eine Spielerliste. Klicke auf „Ansehen“ (oder „View“), um Echtzeitdetails und das Inventar anzuzeigen.
