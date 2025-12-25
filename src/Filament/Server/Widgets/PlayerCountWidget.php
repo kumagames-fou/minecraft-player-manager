@@ -12,8 +12,11 @@ class PlayerCountWidget extends BaseWidget
     protected function getStats(): array
     {
         $server = Filament::getTenant();
-        
-        if (!$server) {
+
+        if (
+            ! $server ||
+            ! in_array('minecraft', $server->egg->tags ?? [])
+        ) {
             return [];
         }
 

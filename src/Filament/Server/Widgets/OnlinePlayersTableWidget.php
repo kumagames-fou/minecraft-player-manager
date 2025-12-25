@@ -12,6 +12,13 @@ use Filament\Actions\Action;
 
 class OnlinePlayersTableWidget extends BaseWidget
 {
+    public static function canView(): bool
+    {
+        /** @var \App\Models\Server $server */
+        $server = Filament::getTenant();
+
+        return in_array('minecraft', $server->egg->tags ?? []);
+    }
     protected int | string | array $columnSpan = 'full';
     
     protected static ?string $heading = 'Online Players';

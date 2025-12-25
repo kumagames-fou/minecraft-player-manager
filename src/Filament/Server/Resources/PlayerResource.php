@@ -24,6 +24,19 @@ class PlayerResource extends Resource
         return __('minecraft-player-manager::messages.navigation_label');
     }
 
+    public static function canAccess(): bool
+    {
+        $server = \Filament\Facades\Filament::getTenant();
+        // Check if the server has the 'minecraft' tag
+        $tags = $server->egg->tags ?? [];
+        return parent::canAccess() && in_array('minecraft', $tags);
+    }
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return static::canAccess();
+    }
+
     public static function table(Table $table): Table
     {
         return $table

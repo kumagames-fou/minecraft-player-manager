@@ -36,6 +36,7 @@ View real-time status with RCON, check inventories, and perform administrative a
 *   **Yarn**: v1.22 or higher
 *   **Pelican Panel**: v1.0.0 or higher
 *   **Minecraft Server**:
+    *   **Egg Tag**: The server MUST have the `minecraft` tag assigned for the plugin to be visible.
     *   **Java Edition**: Version 1.13+ recommended (for Data Command support).
     *   **RCON**: Must be enabled (`enable-rcon=true` and valid port/password).
     *   **Query**: Must be enabled (`enable-query=true`) for real-time player listing.
@@ -80,6 +81,7 @@ RCONを使用してリアルタイムのステータスを確認したり、イ�
 *   **Yarn**: v1.22 以上
 *   **Pelican Panel**: v1.0.0 以上
 *   **Minecraft サーバー**:
+    *   **Egg Tag**: サーバーに `minecraft` タグが付与されている必要があります（タグがないとプラグインは表示されません）。
     *   **Java Edition**: 1.13以上推奨（Dataコマンドの互換性のため）
     *   **RCON**: 有効化必須（`enable-rcon=true` およびポート・パスワード設定）
     *   **Query**: プレイヤーリスト取得のため有効化必須（`enable-query=true`）
@@ -128,6 +130,7 @@ Du kannst den Spielerstatus in Echtzeit über RCON einsehen, Inventare prüfen u
 * **Yarn**: v1.22 oder höher
 * **Pelican Panel**: v1.0.0 oder höher
 * **Minecraft-Server**:
+  * **Egg Tag**: Der Server MUSS den Tag `minecraft` besitzen, damit das Plugin sichtbar ist.
   * **Java Edition**: Version 1.13+ empfohlen (für Data-Command-Unterstützung).
   * **RCON**: Muss aktiviert sein (`enable-rcon=true` sowie gültiger Port und Passwort).
   * **Query**: Muss aktiviert sein (`enable-query=true`) für die Echtzeit-Spielerliste.
