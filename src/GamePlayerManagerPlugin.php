@@ -51,6 +51,11 @@ class GamePlayerManagerPlugin implements Plugin, HasPluginSettings
                 ->label(__('minecraft-player-manager::messages.settings.rcon_enabled'))
                 ->helperText(__('minecraft-player-manager::messages.settings.rcon_enabled_helper'))
                 ->default(env('MC_PLAYER_MANAGER_RCON_ENABLED', false)),
+            \Filament\Forms\Components\TextInput::make('nav_sort')
+                ->label(__('minecraft-player-manager::messages.settings.nav_sort'))
+                ->helperText(__('minecraft-player-manager::messages.settings.nav_sort_helper'))
+                ->numeric()
+                ->default(env('MC_PLAYER_MANAGER_NAV_SORT', 2)),
         ];
     }
 
@@ -58,6 +63,7 @@ class GamePlayerManagerPlugin implements Plugin, HasPluginSettings
     {
         $this->writeToEnvironment([
             'MC_PLAYER_MANAGER_RCON_ENABLED' => $data['rcon_enabled'],
+            'MC_PLAYER_MANAGER_NAV_SORT' => $data['nav_sort'],
         ]);
 
         Notification::make()

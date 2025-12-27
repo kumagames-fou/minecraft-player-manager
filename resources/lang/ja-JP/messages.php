@@ -109,6 +109,8 @@ return [
     'settings' => [
         'rcon_enabled' => 'RCON / ライブステータスを有効にする',
         'rcon_enabled_helper' => 'RCONを使用してリアルタイムデータ（インベントリ、体力など）を取得・表示します。server.propertiesでRCONが有効になっている必要があります。',
+        'nav_sort' => 'メニュー表示順序',
+        'nav_sort_helper' => 'サイドメニュー内の表示順序を設定します。数字が小さいほど上に表示されます。（デフォルト: 2）',
         'saved' => '設定を保存しました。',
     ],
 ];

@@ -110,6 +110,8 @@ return [
     'settings' => [
         'rcon_enabled' => 'RCON / Live-Status aktivieren',
         'rcon_enabled_helper' => 'Ermöglicht das Abrufen von Echtzeitdaten (Inventar, Gesundheit usw.) über RCON. Erfordert, dass RCON in den server.properties aktiviert ist.',
+        'nav_sort' => 'Navigationsreihenfolge',
+        'nav_sort_helper' => 'Sortierreihenfolge im Seitenmenü. Niedrigere Zahlen erscheinen weiter oben. (Standard: 2)',
         'saved' => 'Einstellungen erfolgreich gespeichert.',
     ],
 ];

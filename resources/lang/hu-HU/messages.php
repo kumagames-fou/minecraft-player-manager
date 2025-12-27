@@ -83,7 +83,7 @@ return [
     ],
 
     'widget' => [
-        'online_players' => 'Online játékosok',
+        'online_players' => 'Elérhető játékosok',
     ],
 
     'pages' => [

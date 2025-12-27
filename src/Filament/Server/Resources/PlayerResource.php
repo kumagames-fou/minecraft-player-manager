@@ -14,9 +14,13 @@ use Filament\Facades\Filament;
 class PlayerResource extends Resource
 {
     protected static ?string $model = \KumaGames\GamePlayerManager\Models\Player::class;
-    protected static ?string $slug = 'game-players';
-    protected static bool $isScopedToTenant = false; // Disable automatic tenant scoping since we handle data manually
     protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-users';
+    
+    public static function getNavigationSort(): ?int
+    {
+        return (int) env('MC_PLAYER_MANAGER_NAV_SORT', 2);
+    }
+
     protected static ?string $navigationLabel = null; 
 
     public static function getNavigationLabel(): string

@@ -109,6 +109,8 @@ return [
     'settings' => [
         'rcon_enabled' => 'Enable RCON / Live Status',
         'rcon_enabled_helper' => 'Enables real-time data fetching (Inventory, Health, etc.) via RCON. Requires RCON to be enabled in server.properties.',
+        'nav_sort' => 'Navigation Order',
+        'nav_sort_helper' => 'Sort order in the side menu. Lower numbers appear higher. (Default: 2)',
         'saved' => 'Settings saved successfully.',
     ],
 ];
