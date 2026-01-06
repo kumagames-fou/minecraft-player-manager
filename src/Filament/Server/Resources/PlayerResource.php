@@ -14,7 +14,7 @@ use Filament\Facades\Filament;
 class PlayerResource extends Resource
 {
     protected static ?string $model = \KumaGames\GamePlayerManager\Models\Player::class;
-    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-users';
+    protected static string | \BackedEnum | null $navigationIcon = 'tabler-users-group';
     
     public static function getNavigationSort(): ?int
     {
