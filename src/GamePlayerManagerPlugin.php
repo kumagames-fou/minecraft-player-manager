@@ -25,7 +25,6 @@ class GamePlayerManagerPlugin implements Plugin, HasPluginSettings
         
         // Discover Resources, Pages, and Widgets dynamically based on panel ID (Admin, Server, etc.)
         $panel->discoverResources(plugin_path($this->getId(), "src/Filament/$id/Resources"), "KumaGames\\GamePlayerManager\\Filament\\$id\\Resources");
-        $panel->discoverPages(plugin_path($this->getId(), "src/Filament/$id/Pages"), "KumaGames\\GamePlayerManager\\Filament\\$id\\Pages");
         $panel->discoverWidgets(plugin_path($this->getId(), "src/Filament/$id/Widgets"), "KumaGames\\GamePlayerManager\\Filament\\$id\\Widgets");
     }
 
