@@ -132,17 +132,29 @@ class PlayerResource extends Resource
                     ->requiresConfirmation(),
 
                 Action::make('ban')
-                    ->color('danger')
-                    ->icon('heroicon-m-no-symbol')
+                    ->label(fn ($record) => $record->is_banned ? __('minecraft-player-manager::messages.actions.ban.label_unban') : __('minecraft-player-manager::messages.actions.ban.label_ban'))
+                    ->color(fn ($record) => $record->is_banned ? 'success' : 'danger')
+                    ->icon(fn ($record) => $record->is_banned ? 'heroicon-m-check-circle' : 'heroicon-m-no-symbol')
                     ->button()
-                    ->action(function ($record) {
+                    ->form(fn ($record) => $record->is_banned ? [] : [
+                        \Filament\Forms\Components\TextInput::make('reason')
+                            ->label(__('minecraft-player-manager::messages.actions.ban.reason'))
+                            ->default(__('minecraft-player-manager::messages.actions.ban.default_reason')),
+                    ])
+                    ->action(function (array $data, $record) {
                         if (!$record) return;
                         $server = \Filament\Facades\Filament::getTenant();
                         if (!$server) return;
 
                         $provider = app(MinecraftPlayerProvider::class);
-                        $provider->sendRconCommand($server->uuid, "ban {$record->name}");
-                        \Filament\Notifications\Notification::make()->title(__('minecraft-player-manager::messages.actions.ban.notify'))->success()->send();
+                        
+                        if ($record->is_banned) {
+                            $provider->pardon($server->uuid, $record->name);
+                            \Filament\Notifications\Notification::make()->title(__('minecraft-player-manager::messages.actions.ban.notify_unban'))->success()->send();
+                        } else {
+                            $provider->ban($server->uuid, $record->name, $data['reason'] ?? null);
+                            \Filament\Notifications\Notification::make()->title(__('minecraft-player-manager::messages.actions.ban.notify_ban'))->success()->send();
+                        }
                     })
                     ->requiresConfirmation(),
             ]);

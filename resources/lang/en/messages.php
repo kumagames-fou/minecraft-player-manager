@@ -77,10 +77,12 @@ return [
             'notify' => 'Kick Command Sent',
         ],
         'ban' => [
-            'label' => 'Ban',
+            'label_ban' => 'Ban',
+            'label_unban' => 'Unban',
             'reason' => 'Reason',
-            'default_reason' => 'Banned by operator',
-            'notify' => 'Ban Command Sent',
+            'default_reason' => 'Banned by Operator',
+            'notify_ban' => 'Ban command sent',
+            'notify_unban' => 'Unban command sent',
         ],
     ],
 

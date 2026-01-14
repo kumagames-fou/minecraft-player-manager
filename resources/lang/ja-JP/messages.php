@@ -77,10 +77,12 @@ return [
             'notify' => 'キックコマンドを送信しました',
         ],
         'ban' => [
-            'label' => 'BAN',
+            'label_ban' => 'BAN',
+            'label_unban' => 'BAN解除',
             'reason' => '理由',
-            'default_reason' => '管理者によりBANされました',
-            'notify' => 'BANコマンドを送信しました',
+            'default_reason' => '管理者によるBAN',
+            'notify_ban' => 'BANコマンドを送信しました',
+            'notify_unban' => 'BAN解除コマンドを送信しました',
         ],
     ],
 

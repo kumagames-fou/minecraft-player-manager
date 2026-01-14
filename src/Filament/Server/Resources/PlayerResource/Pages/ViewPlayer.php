@@ -113,20 +113,27 @@ class ViewPlayer extends ViewRecord
     public function ban(): \Filament\Actions\Action
     {
         return \Filament\Actions\Action::make('ban')
-            ->label(__('minecraft-player-manager::messages.actions.ban.label'))
-            ->icon('heroicon-m-no-symbol')
-            ->color('danger')
-            ->form([
+            ->label(fn () => $this->record->is_banned ? __('minecraft-player-manager::messages.actions.ban.label_unban') : __('minecraft-player-manager::messages.actions.ban.label_ban'))
+            ->icon(fn () => $this->record->is_banned ? 'heroicon-m-check-circle' : 'heroicon-m-no-symbol')
+            ->color(fn () => $this->record->is_banned ? 'success' : 'danger')
+            ->form(fn () => $this->record->is_banned ? [] : [
                 \Filament\Forms\Components\TextInput::make('reason')
                     ->label(__('minecraft-player-manager::messages.actions.ban.reason'))
                     ->default(__('minecraft-player-manager::messages.actions.ban.default_reason')),
             ])
+            ->requiresConfirmation()
             ->action(function (array $data, $record) {
                 $server = Filament::getTenant();
                 $serverId = $server->uuid ?? 'server-1';
                 $provider = new MinecraftPlayerProvider();
-                $provider->ban($serverId, $record->name, $data['reason']);
-                \Filament\Notifications\Notification::make()->title(__('minecraft-player-manager::messages.actions.ban.notify'))->success()->send();
+                
+                if ($record->is_banned) {
+                    $provider->pardon($serverId, $record->name);
+                    \Filament\Notifications\Notification::make()->title(__('minecraft-player-manager::messages.actions.ban.notify_unban'))->success()->send();
+                } else {
+                    $provider->ban($serverId, $record->name, $data['reason'] ?? null);
+                     \Filament\Notifications\Notification::make()->title(__('minecraft-player-manager::messages.actions.ban.notify_ban'))->success()->send();
+                }
                 
                 sleep(1);
                 $this->refreshPlayer();

@@ -77,10 +77,12 @@ return [
             'notify' => 'Kick-Befehl gesendet',
         ],
         'ban' => [
-            'label' => 'Bannen',
+            'label_ban' => 'Bannen',
+            'label_unban' => 'Entbannen',
             'reason' => 'Grund',
             'default_reason' => 'Vom Operator gebannt',
-            'notify' => 'Ban-Befehl gesendet',
+            'notify_ban' => 'Ban-Befehl gesendet',
+            'notify_unban' => 'Entbann-Befehl gesendet',
         ],
     ],
 

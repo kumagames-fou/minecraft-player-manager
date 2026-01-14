@@ -245,6 +245,8 @@ class MinecraftPlayerProvider implements GamePlayerService
             'uuid' => $uuid ?? 'Unknown',
             'status' => 'Offline', // Default
             'is_op' => false,
+            'is_op' => false,
+            'is_banned' => false,
             'raw_stats' => 'RCON disabled or unavailable.',
             'health' => null,
             'food' => null,
@@ -265,6 +267,20 @@ class MinecraftPlayerProvider implements GamePlayerService
                 foreach ($ops as $op) {
                     if (strtolower($op['name'] ?? '') === strtolower($playerId)) {
                         $details['is_op'] = true;
+                        break;
+                    }
+                }
+            }
+        } catch (\Exception $e) { /* Ignore */ }
+
+        // Check Banned status
+        try {
+            $bannedContent = $fileRepository->getContent('banned-players.json');
+            $banned = json_decode($bannedContent, true);
+            if (is_array($banned)) {
+                foreach ($banned as $ban) {
+                    if (strtolower($ban['name'] ?? '') === strtolower($playerId)) {
+                        $details['is_banned'] = true;
                         break;
                     }
                 }
@@ -303,8 +319,7 @@ class MinecraftPlayerProvider implements GamePlayerService
         $primaryHost = $server->allocation->alias ?? $server->allocation->ip;
         $hasPass = !empty($rconPassword);
 
-        $primaryHost = $server->allocation->alias ?? $server->allocation->ip;
-        $hasPass = !empty($rconPassword);
+
         
         // Check setting
         $rconEnabled = env('MC_PLAYER_MANAGER_RCON_ENABLED', false);
@@ -519,27 +534,31 @@ class MinecraftPlayerProvider implements GamePlayerService
 
     public function ban(string $serverId, string $playerId, string $reason = ''): bool
     {
-        $cmd = trim("ban $playerId $reason");
+        $cmd = "ban $playerId";
+        if (!empty($reason)) {
+            $cmd .= " $reason";
+        }
         return $this->sendRconCommand($serverId, $cmd) !== null;
+    }
+
+    public function pardon(string $serverId, string $playerId): bool
+    {
+        return $this->sendRconCommand($serverId, "pardon $playerId") !== null;
     }
 
     public function op(string $serverId, string $playerId): bool
     {
-        $cmd = trim("op $playerId");
-        return $this->sendRconCommand($serverId, $cmd) !== null;
+        return $this->sendRconCommand($serverId, "op $playerId") !== null;
     }
 
     public function deop(string $serverId, string $playerId): bool
     {
-        $cmd = trim("deop $playerId");
-        return $this->sendRconCommand($serverId, $cmd) !== null;
+        return $this->sendRconCommand($serverId, "deop $playerId") !== null;
     }
 
     public function clearInventory(string $serverId, string $playerId): bool
     {
-        $cmd = trim("clear $playerId");
-        // returns "Cleared the inventory of <player>" on success, or "No items to clear", or "No player found"
-        return $this->sendRconCommand($serverId, $cmd) !== null;
+        return $this->sendRconCommand($serverId, "clear $playerId") !== null;
     }
 
     private function getOfflineDetailsFromNbt(Server $server, string $uuid): ?array
