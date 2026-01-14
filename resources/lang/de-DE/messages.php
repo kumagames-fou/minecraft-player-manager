@@ -88,6 +88,8 @@ return [
 
     'widget' => [
         'online_players' => 'Online Spieler',
+        'motd' => 'MOTD',
+        'map' => 'Kartenname',
     ],
 
     'pages' => [

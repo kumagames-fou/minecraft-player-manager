@@ -88,6 +88,8 @@ return [
 
     'widget' => [
         'online_players' => 'オンライン人数',
+        'motd' => 'MOTD',
+        'map' => 'マップ名',
     ],
 
     'pages' => [

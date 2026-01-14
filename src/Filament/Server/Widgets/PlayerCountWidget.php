@@ -26,10 +26,16 @@ class PlayerCountWidget extends BaseWidget
         $players = $provider->getPlayers($serverId);
         
         $onlineCount = count(array_filter($players, fn($p) => $p['online'] ?? false));
-        // We can get max players if we had query details, but for now hardcode or omit
         
+        $properties = $provider->getServerProperties($serverId);
+        $maxPlayers = $properties['max_players'] ?? 20;
+        $motd = $properties['motd'] ?? '';
+        $levelName = $properties['level_name'] ?? 'world';
+
         return [
-            SmallStatBlock::make(__('minecraft-player-manager::messages.widget.online_players'), (string) $onlineCount), 
+            SmallStatBlock::make(__('minecraft-player-manager::messages.widget.online_players'), "{$onlineCount} / {$maxPlayers}"), 
+            SmallStatBlock::make(__('minecraft-player-manager::messages.widget.motd'), $motd),
+            SmallStatBlock::make(__('minecraft-player-manager::messages.widget.map'), $levelName),
         ];
     }
 }

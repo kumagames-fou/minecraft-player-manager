@@ -561,6 +561,41 @@ class MinecraftPlayerProvider implements GamePlayerService
         return $this->sendRconCommand($serverId, "clear $playerId") !== null;
     }
 
+    public function getServerProperties(string $serverId): array
+    {
+        $server = Server::where('uuid', $serverId)->orWhere('uuid_short', $serverId)->first();
+        if (!$server) return [];
+
+        /** @var \App\Repositories\Daemon\DaemonFileRepository $fileRepository */
+        $fileRepository = app(\App\Repositories\Daemon\DaemonFileRepository::class);
+        $fileRepository->setServer($server);
+
+        $props = [
+            'max_players' => 20,
+            'motd' => 'A Minecraft Server',
+            'level_name' => 'world',
+        ];
+
+        try {
+            $content = $fileRepository->getContent('server.properties');
+            
+            if (preg_match('/^\s*max-players\s*=\s*(\d+)/m', $content, $m)) {
+                $props['max_players'] = (int)$m[1];
+            }
+            if (preg_match('/^\s*motd\s*=\s*(.*)$/m', $content, $m)) {
+                $rawMotd = trim($m[1]);
+                // Handle basic unicode escape if present
+                $props['motd'] = json_decode('"'.$rawMotd.'"') ?? $rawMotd;
+            }
+            if (preg_match('/^\s*level-name\s*=\s*(.*)$/m', $content, $m)) {
+                $props['level_name'] = trim($m[1]);
+            }
+
+        } catch (\Exception $e) { /* Ignore */ }
+
+        return $props;
+    }
+
     private function getOfflineDetailsFromNbt(Server $server, string $uuid): ?array
     {
         if (empty($uuid) || $uuid === 'Unknown') return null;
