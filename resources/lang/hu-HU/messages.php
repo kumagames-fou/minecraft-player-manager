@@ -8,15 +8,15 @@ return [
         'name' => 'Felhasználónév',
         'status' => 'Státusz',
         'world' => 'Világ',
-        'online' => 'Online',
-        'offline' => 'Offline',
+        'online' => 'Elérhető',
+        'offline' => 'Nem Elérhető',
         'op' => 'Operátor',
     ],
 
     'filters' => [
         'all' => 'Összes',
-        'online' => 'Online',
-        'offline' => 'Offline',
+        'online' => 'Elérhető',
+        'offline' => 'Nem Elérhető',
         'op' => 'OP',
         'banned' => 'Kitiltva',
     ],
@@ -27,6 +27,8 @@ return [
         'statistics_desc' => 'Történelmi adatok a világ statisztikáiból',
         'live_status' => 'Élő állapot',
         'live_status_desc' => 'Valós idejű adatok (csak online játékosoknál)',
+        'offline_status_desc' => 'Nem elérhető - Az utolsó mentési fájl adatainak megjelenítése',
+        'rcon_disabled_status_desc' => 'RCON letiltva - A mentési fájl adatainak megjelenítése',
         'inventory' => 'Leltár',
         'management' => 'Kezelés',
         'management_desc' => 'Műveletek végrehajtása ezen a játékoson',
@@ -75,15 +77,22 @@ return [
             'notify' => 'Kick parancs elküldve',
         ],
         'ban' => [
-            'label' => 'Kitiltás',
+            'label_ban' => 'Kitiltás',
+            'label_unban' => 'Kitiltás feloldása',
             'reason' => 'Indok',
             'default_reason' => 'Operátor által kitiltva',
-            'notify' => 'Ban parancs elküldve',
+            'notify_ban' => 'Ban parancs elküldve',
+            'notify_unban' => 'Kizárás feloldására vonatkozó parancs elküldve',
         ],
     ],
 
     'widget' => [
         'online_players' => 'Elérhető játékosok',
+        'motd' => 'MOTD',
+        'map' => 'Térkép neve',
+        'units' => [
+            'mins' => 'perc',
+        ],
     ],
 
     'pages' => [
@@ -96,17 +105,19 @@ return [
         'creative' => 'Kreatív',
         'adventure' => 'Kaland',
         'spectator' => 'Néző',
-        'online' => 'Online',
-        'offline' => 'Offline',
+        'online' => 'Elérhető',
+        'offline' => 'Nem elérhető',
+        'offline_data_source' => 'Nem elérhető (Utolsó mentett adat)',
     ],
 
     'units' => [
         'mins' => 'perc',
     ],
-
     'settings' => [
         'rcon_enabled' => 'RCON / Élő állapot engedélyezése',
         'rcon_enabled_helper' => 'Valós idejű adatlekérést tesz lehetővé (Leltár, Életerő stb.) RCON-on keresztül. Ehhez engedélyezni kell az RCON-t a server.properties-ben.',
+        'nav_sort' => 'Navigációs sorrend',
+        'nav_sort_helper' => 'Rendezési sorrend az oldalsó menüben. Az alacsonyabb számok magasabban jelennek meg. (Alapértelmezett: 2)',
         'saved' => 'Beállítások sikeresen elmentve.',
     ],
 ];
